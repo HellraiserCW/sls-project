@@ -2,19 +2,22 @@
   "name": "sls-project",
   "author": "Kostiantyn Sakharov",
   "version": "0.0.1",
-  "description": "Serverless with serverless-offline, serverless-esbuild, typescript",
+  "description": "Serverless with serverless-offline, serverless-esbuild, typescript, dynamodb-local",
   "license": "MIT",
   "scripts": {
     "start": "serverless offline"
   },
-  "dependencies": {},
+  "dependencies": {
+    "serverless-dynamodb": "^0.2.54"
+  },
   "devDependencies": {
-    "@types/node": "^18.0.0",
-    "typescript": "^5.1.6",
     "@types/aws-lambda": "^8.10.119",
+    "@types/node": "^18.0.0",
+    "aws-sdk": "^2.12.0",
+    "esbuild": "^0.17.19",
     "serverless": "^3.34.0",
     "serverless-esbuild": "^1.46.0",
-    "esbuild": "^0.17.19",
-    "serverless-offline": "^12.0.4"
+    "serverless-offline": "^12.0.4",
+    "typescript": "^5.1.6"
   }
 }
