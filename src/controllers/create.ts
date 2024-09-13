@@ -7,7 +7,7 @@ export const createUser = (req: Request, res: Response) => {
 
   if (!name || !email) {
     console.error("Invalid input");
-    res.status(400).json({ error: "Invalid input format" });
+    res.status(400).json({ error: "You should provide name and email to create a record" });
     
     return;
   }
