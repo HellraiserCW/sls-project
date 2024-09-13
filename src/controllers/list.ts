@@ -9,7 +9,7 @@ export const listUsers = (_req: Request, res: Response) => {
   dynamodb.scan(params, (error, result) => {
     if (error) {
       console.error(error);
-      res.status(error.statusCode || 501).json({
+      res.status(500).json({
         error: 'Failed to retrieve users from db',
       });
 
