@@ -29,13 +29,22 @@ npm i
 
 ## Running application
 
-App require running database. DynamoDB will initialize locally after startup if installed to .dynamodb folder. You need only to start the app.
+App require running database. DynamoDB will initialize locally after startup if installed to .dynamodb folder. You need only to start the app. It should run on port 3000.
 
 ```
 npm run start
 ```
 
-Use Postman or curl to make api calls.
+Use Postman or curl to make api calls f.e.:
+
+```
+curl -X POST http://localhost:3000/users \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "John Doe",
+    "email": "john.doe@example.com"
+  }'
+```
 
 ## Testing
 

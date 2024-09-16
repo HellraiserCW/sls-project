@@ -26,8 +26,10 @@ provider:
   iamRoleStatements:
     - Effect: Allow
       Action:
-        - dynamodb:*
-      Resource: '*'
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+      Resource: "arn:aws:dynamodb:${aws:region}:*:table/${self:provider.environment.tableName}"
 
 functions:
   proxy:
