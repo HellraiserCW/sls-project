@@ -35,6 +35,8 @@ App require running database. DynamoDB will initialize locally after startup if 
 npm run start
 ```
 
+Use Postman or curl to make api calls.
+
 ## Testing
 
 Not implemented
