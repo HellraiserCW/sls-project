@@ -4,6 +4,7 @@
 
 - Git
 - Node.js - 20 (LTS)
+- Yarn
 - Java SDK - 22
 - DynamoDB local - 2.x (should be installed to .dynamodb folder)
 
@@ -20,7 +21,7 @@ cd ./sls-project
 ## Installing NPM modules
 
 ```
-npm i
+yarn install 
 ```
 
 ## Prepare for running
@@ -32,7 +33,7 @@ npm i
 App require running database. DynamoDB will initialize locally after startup if installed to .dynamodb folder. You need only to start the app. It should run on port 3000.
 
 ```
-npm run start
+yarn start
 ```
 
 Use Postman or curl to make api calls f.e.:
