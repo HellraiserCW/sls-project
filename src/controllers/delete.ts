@@ -3,7 +3,7 @@ import { dynamodb } from '../dynamodb';
 
 export const deleteUser = (req: Request, res: Response) => {
   const params = {
-    TableName: process.env.tableName!,
+    TableName: process.env.TABLE_NAME,
     Key: {
       id: req.params.id,
     },

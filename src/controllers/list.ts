@@ -3,7 +3,7 @@ import { dynamodb } from '../dynamodb';
 
 export const listUsers = (_req: Request, res: Response) => {
   const params = {
-    TableName: process.env.tableName!,
+    TableName: process.env.TABLE_NAME,
   };
 
   dynamodb.scan(params, (error, result) => {

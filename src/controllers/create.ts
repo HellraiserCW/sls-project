@@ -13,7 +13,7 @@ export const createUser = (req: Request, res: Response) => {
   }
 
   const params = {
-    TableName: process.env.tableName!,
+    TableName: process.env.TABLE_NAME,
     Item: {
       id: uuidv4(),
       name,

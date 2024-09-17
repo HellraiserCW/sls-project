@@ -1,4 +1,4 @@
-# Serverless offline CRUDL project with DynamoDb
+## Serverless offline CRUDL project with DynamoDb
 
 ## Prerequisites
 
@@ -6,7 +6,7 @@
 - Node.js - 20 (LTS)
 - Yarn
 - Java SDK - 22
-- DynamoDB local - 2.x (should be installed to .dynamodb folder)
+- DynamoDB local - 2.x (must be installed to ```.dynamodb``` project folder)
 
 ## Downloading
 
@@ -26,17 +26,17 @@ yarn install
 
 ## Prepare for running
 
-1. Create `.env` file in root folder. You can just rename `.env.example`. (Not implemented)
+Create `.env` file in root folder. You can just rename `.env.example`.
 
 ## Running application
 
-App require running database. DynamoDB will initialize locally after startup if installed to .dynamodb folder. You need only to start the app. It should run on port 3000.
+App require running database. DynamoDB will initialize locally after startup if installed to ```.dynamodb``` folder. You need only to start the app. It should run on port 3000.
 
 ```
 yarn start
 ```
 
-Use Postman or curl to make api calls f.e.:
+Use Postman or ```curl``` to make api calls f.e.:
 
 ```
 curl -X POST http://localhost:3000/users \

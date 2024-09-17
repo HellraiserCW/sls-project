@@ -3,7 +3,7 @@ import { dynamodb } from '../dynamodb';
 
 export const getUserByEmail = (req: Request, res: Response) => {
   const params = {
-    TableName: process.env.tableName!,
+    TableName: process.env.TABLE_NAME,
     IndexName: 'EmailIndex',
     KeyConditionExpression: 'email = :email',
     ExpressionAttributeValues: {

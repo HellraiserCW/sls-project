@@ -7,7 +7,7 @@ plugins:
   - serverless-dotenv-plugin
 
 custom:
-  tableName: sls-project-table
+  tableName: ${env:TABLE_NAME}
   dynamodb:
     stages:
       - dev
@@ -22,8 +22,6 @@ provider:
   name: aws
   runtime: nodejs20.x
   stage: dev
-  environment:
-    tableName: ${env:TABLE_NAME}
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -31,8 +29,8 @@ provider:
         - dynamodb:Scan
         - dynamodb:GetItem
       Resource:
-        - "arn:aws:dynamodb:${aws:region}:*:table/${self:provider.environment.tableName}"
-        - "arn:aws:dynamodb:${aws:region}:*:table/${self:provider.environment.tableName}/index/EmailIndex"
+        - "arn:aws:dynamodb:${aws:region}:*:table/${env:TABLE_NAME}"
+        - "arn:aws:dynamodb:${aws:region}:*:table/${env:TABLE_NAME}/index/EmailIndex"
 
 useDotenv: true
 
@@ -47,7 +45,7 @@ resources:
     DynamoDbTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: ${self:custom.tableName}
+        TableName: ${env:TABLE_NAME}
         AttributeDefinitions:
           -
             AttributeName: id
