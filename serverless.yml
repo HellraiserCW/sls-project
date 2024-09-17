@@ -4,6 +4,7 @@ plugins:
   - serverless-esbuild
   - serverless-dynamodb
   - serverless-offline
+  - serverless-dotenv-plugin
 
 custom:
   tableName: sls-project-table
@@ -22,14 +23,18 @@ provider:
   runtime: nodejs20.x
   stage: dev
   environment:
-    tableName: ${self:custom.tableName}
+    tableName: ${env:TABLE_NAME}
   iamRoleStatements:
     - Effect: Allow
       Action:
         - dynamodb:Query
         - dynamodb:Scan
         - dynamodb:GetItem
-      Resource: "arn:aws:dynamodb:${aws:region}:*:table/${self:provider.environment.tableName}"
+      Resource:
+        - "arn:aws:dynamodb:${aws:region}:*:table/${self:provider.environment.tableName}"
+        - "arn:aws:dynamodb:${aws:region}:*:table/${self:provider.environment.tableName}/index/EmailIndex"
+
+useDotenv: true
 
 functions:
   proxy:
@@ -47,8 +52,20 @@ resources:
           -
             AttributeName: id
             AttributeType: S
+          -
+            AttributeName: email
+            AttributeType: S
         KeySchema:
           -
             AttributeName: id
             KeyType: HASH
+        GlobalSecondaryIndexes:
+          -
+            IndexName: EmailIndex
+            KeySchema:
+              -
+                AttributeName: email
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
         BillingMode: PAY_PER_REQUEST

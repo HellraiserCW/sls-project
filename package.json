@@ -24,6 +24,7 @@
     "esbuild": "^0.17.19",
     "latest": "^0.2.0",
     "serverless": "^3.39.0",
+    "serverless-dotenv-plugin": "^6.0.0",
     "serverless-esbuild": "^1.46.0",
     "serverless-offline": "^13.8.0",
     "typescript": "^5.1.6"
