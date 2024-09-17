@@ -49,4 +49,12 @@ curl -X POST http://localhost:3000/users \
 
 ## Testing
 
-Not implemented
+```
+yarn test
+```
+
+To show coverage:
+
+```
+yarn test:coverage
+```

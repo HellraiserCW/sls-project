@@ -21,7 +21,7 @@ export const getUserByEmail = (req: Request, res: Response) => {
 
       return;
     }
-    console.log(result);
+
     res.status(200).json(result?.Items);
   });
 };

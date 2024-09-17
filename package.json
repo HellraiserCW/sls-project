@@ -6,7 +6,8 @@
   "license": "MIT",
   "scripts": {
     "start": "sls offline start",
-    "test": "jest"
+    "test": "jest",
+    "test:coverage": "jest --coverage"
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.650.0",
