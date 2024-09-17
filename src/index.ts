@@ -6,9 +6,10 @@ const app = express();
 
 app.use(express.json());
 
-app.get('/', function (req: Request, res: Response) {
+app.get('/', (_req: Request, res: Response) => {
   res.send('Hello, Lambda!');
 });
+
 app.use('/users', usersRouter);
 
 export const handler = serverless(app);
