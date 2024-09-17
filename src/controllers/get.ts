@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { dynamodb } from '../dynamodb';
+import { GetCommandOutput } from "@aws-sdk/lib-dynamodb";
 
 export const getUser = (req: Request, res: Response) => {
   const params = {
@@ -9,7 +10,7 @@ export const getUser = (req: Request, res: Response) => {
     },
   };
 
-  dynamodb.get(params, (error, result) => {
+  dynamodb.get(params, (error: unknown, result?: GetCommandOutput) => {
     if (error) {
       console.error(error);
       res.status(500).json({
@@ -19,6 +20,6 @@ export const getUser = (req: Request, res: Response) => {
       return;
     }
 
-    res.status(200).json(result.Item);
+    res.status(200).json(result?.Item);
   });
 };

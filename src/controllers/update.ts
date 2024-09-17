@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { dynamodb } from '../dynamodb';
+import { UpdateCommandInput, UpdateCommandOutput } from "@aws-sdk/lib-dynamodb";
 
 export const updateUser = (req: Request, res: Response) => {
   const { name, email } = req.body;
@@ -11,7 +12,7 @@ export const updateUser = (req: Request, res: Response) => {
     return;
   }
 
-  const params = {
+  const params: UpdateCommandInput = {
     TableName: process.env.TABLE_NAME,
     Key: {
       id: req.params.id,
@@ -28,7 +29,7 @@ export const updateUser = (req: Request, res: Response) => {
     ReturnValues: "UPDATED_NEW",
   };
 
-  dynamodb.update(params, (error, result) => {
+  dynamodb.update(params, (error: unknown, result?: UpdateCommandOutput) => {
     if (error) {
       console.error(error);
       res.status(500).json({ error: 'Failed to update user in db' });
@@ -36,6 +37,6 @@ export const updateUser = (req: Request, res: Response) => {
       return;
     }
 
-    res.status(200).json(result.Attributes);
+    res.status(200).json(result?.Attributes);
   });
 };
