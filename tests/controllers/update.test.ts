@@ -22,9 +22,7 @@ describe("PUT /user/:id", () => {
       callback(null, mockResult);
     });
 
-    const res = await request(app)
-      .put("/user/1234-5678-91011")
-      .send({ name: "John Doe", email: "john@example.com" });
+    const res = await request(app).put("/user/1234-5678-91011").send({ name: "John Doe", email: "john@example.com" });
 
     expect(res.status).toBe(200);
     expect(res.body).toEqual(mockResult.Attributes);
@@ -35,18 +33,14 @@ describe("PUT /user/:id", () => {
       callback(new Error("DB Error"), null);
     });
 
-    const res = await request(app)
-      .put("/user/1234-5678-91011")
-      .send({ name: "John Doe", email: "john@example.com" });
+    const res = await request(app).put("/user/1234-5678-91011").send({ name: "John Doe", email: "john@example.com" });
 
     expect(res.status).toBe(500);
     expect(res.body).toEqual({ error: "Failed to update user in db" });
   });
 
   it("should return 400 for invalid input", async () => {
-    const res = await request(app)
-      .put("/user/1234-5678-91011")
-      .send({ name: "", email: "" });
+    const res = await request(app).put("/user/1234-5678-91011").send({ name: "", email: "" });
 
     expect(res.status).toBe(400);
     expect(res.body).toEqual({ error: "Invalid input format" });

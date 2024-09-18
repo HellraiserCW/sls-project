@@ -11,10 +11,7 @@ module.exports = {
       statements: 90,
     },
   },
-  collectCoverageFrom: [
-    "src/controllers/**/*.{ts,js}",
-    "src/middlewares/**/*.{ts,js}",
-  ],
+  collectCoverageFrom: ["src/controllers/**/*.{ts,js}", "src/middlewares/**/*.{ts,js}"],
   transform: {
     "^.+.tsx?$": ["ts-jest", {}],
   },

@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { dynamodb } from "../dynamodb";
 import { QueryCommandInput, QueryCommandOutput } from "@aws-sdk/lib-dynamodb";
+import { logger } from "..";
 
 export const getUserByEmail = (req: Request, res: Response) => {
   const email = req.query.email as string;
@@ -20,7 +21,7 @@ export const getUserByEmail = (req: Request, res: Response) => {
 
   dynamodb.query(params, (error: unknown, result?: QueryCommandOutput) => {
     if (error) {
-      console.error(error);
+      logger.error("DB error:", error as Error);
       res.status(500).json({
         error: "Failed to retrieve user by email from db",
       });

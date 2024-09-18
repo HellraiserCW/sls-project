@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { dynamodb } from "../dynamodb";
 import { DeleteCommandInput } from "@aws-sdk/lib-dynamodb";
+import { logger } from "..";
 
 export const deleteUser = (req: Request, res: Response) => {
   const params: DeleteCommandInput = {
@@ -12,7 +13,7 @@ export const deleteUser = (req: Request, res: Response) => {
 
   dynamodb.delete(params, (error: unknown) => {
     if (error) {
-      console.error(error);
+      logger.error("DB error:", error as Error);
       res.status(500).json({
         error: "Failed to delete user from db",
       });

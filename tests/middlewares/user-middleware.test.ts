@@ -17,7 +17,7 @@ describe("userMiddleware", () => {
       json: jest.fn(),
     };
   });
-  
+
   it("should call listUsers if email query parameter is not present", () => {
     req = { query: {} };
 

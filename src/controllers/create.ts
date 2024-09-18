@@ -2,15 +2,14 @@ import { Request, Response } from "express";
 import { v4 as uuidv4 } from "uuid";
 import { dynamodb } from "../dynamodb";
 import { PutCommandInput } from "@aws-sdk/lib-dynamodb";
+import { logger } from "..";
 
 export const createUser = (req: Request, res: Response) => {
   const { name, email } = req.body;
 
   if (!name || !email) {
-    console.error("Invalid input");
-    res
-      .status(400)
-      .json({ error: "You should provide name and email to create a record" });
+    logger.error("Invalid input");
+    res.status(400).json({ error: "You should provide name and email to create a record" });
 
     return;
   }
@@ -26,7 +25,7 @@ export const createUser = (req: Request, res: Response) => {
 
   dynamodb.put(params, (error: unknown) => {
     if (error) {
-      console.error(error);
+      logger.error("DB error:", error as Error);
       res.status(500).json({ error: "Failed to create user in db" });
 
       return;

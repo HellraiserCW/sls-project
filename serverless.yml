@@ -1,4 +1,4 @@
-service: sls-project
+service: ${env:SERVICE_NAME}
 
 plugins:
   - serverless-esbuild

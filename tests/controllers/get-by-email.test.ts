@@ -11,9 +11,7 @@ app.get("/users", getUserByEmail);
 
 describe("GET /users", () => {
   it("should retrieve a user by email successfully", async () => {
-    const mockUsers = [
-      { id: "1234-5678-91011", name: "John Doe", email: "john@example.com" },
-    ];
+    const mockUsers = [{ id: "1234-5678-91011", name: "John Doe", email: "john@example.com" }];
     (dynamodb.query as jest.Mock).mockImplementation((_params, callback) => {
       callback(null, { Items: mockUsers });
     });

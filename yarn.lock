@@ -107,6 +107,28 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@aws-lambda-powertools/commons@npm:^2.8.0":
+  version: 2.8.0
+  resolution: "@aws-lambda-powertools/commons@npm:2.8.0"
+  checksum: 10c0/d8e5591e4bf56f3aaaa3015a78f5a3c7db84ff81e9b709d3317e7b79909ac34873c9533236dca829b45aae1cc87ad8519cfa3606dc3db8ac993ffa24ecd20b1a
+  languageName: node
+  linkType: hard
+
+"@aws-lambda-powertools/logger@npm:^2.8.0":
+  version: 2.8.0
+  resolution: "@aws-lambda-powertools/logger@npm:2.8.0"
+  dependencies:
+    "@aws-lambda-powertools/commons": "npm:^2.8.0"
+    lodash.merge: "npm:^4.6.2"
+  peerDependencies:
+    "@middy/core": 4.x || 5.x
+  peerDependenciesMeta:
+    "@middy/core":
+      optional: true
+  checksum: 10c0/464d05a2f81b5802956efa7eaac2c6a1d42edd9c78181d4e67de09ee01efe78caa5644e5517308fb67ded23dd8eb51ac282327755ab3e2c7672ec1fb26d7e5a0
+  languageName: node
+  linkType: hard
+
 "@aws-sdk/client-api-gateway@npm:^3.588.0":
   version: 3.651.1
   resolution: "@aws-sdk/client-api-gateway@npm:3.651.1"
@@ -11700,6 +11722,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "sls-project@workspace:."
   dependencies:
+    "@aws-lambda-powertools/logger": "npm:^2.8.0"
     "@aws-sdk/client-dynamodb": "npm:^3.650.0"
     "@aws-sdk/lib-dynamodb": "npm:^3.650.0"
     "@aws-sdk/util-dynamodb": "npm:^3.650.0"

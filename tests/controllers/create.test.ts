@@ -28,9 +28,7 @@ describe("Create User Controller", () => {
   });
 
   it("should return 400 if name is missing", async () => {
-    const res = await request(app)
-      .post("/create")
-      .send({ email: "john@example.com" });
+    const res = await request(app).post("/create").send({ email: "john@example.com" });
 
     expect(res.status).toBe(400);
     expect(res.body).toEqual({
@@ -45,9 +43,7 @@ describe("Create User Controller", () => {
       callback(null, {});
     });
 
-    const res = await request(app)
-      .post("/create")
-      .send({ name: "John", email: "john@example.com" });
+    const res = await request(app).post("/create").send({ name: "John", email: "john@example.com" });
 
     expect(res.status).toBe(200);
     expect(res.body).toEqual({
@@ -62,9 +58,7 @@ describe("Create User Controller", () => {
       callback(new Error("DB Error"), null);
     });
 
-    const res = await request(app)
-      .post("/create")
-      .send({ name: "John", email: "john@example.com" });
+    const res = await request(app).post("/create").send({ name: "John", email: "john@example.com" });
 
     expect(res.status).toBe(500);
     expect(res.body).toEqual({ error: "Failed to create user in db" });
