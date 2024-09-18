@@ -2,8 +2,14 @@ import request from "supertest";
 import express from "express";
 import { getUserByEmail } from "../../src/controllers/get-by-email";
 import { dynamodb } from "../../src/dynamodb";
+import { logger } from "../../src";
 
 jest.mock("../../src/dynamodb");
+jest.mock("../../src", () => ({
+  logger: {
+    error: jest.fn(),
+  },
+}));
 
 const app = express();
 app.use(express.json());
@@ -42,5 +48,6 @@ describe("GET /users", () => {
     expect(res.body).toEqual({
       error: "Failed to retrieve user by email from db",
     });
+    expect(logger.error).toHaveBeenCalledWith("DB error:", new Error("DB Error"));
   });
 });

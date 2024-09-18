@@ -3,10 +3,16 @@ import request from "supertest";
 import { v4 as uuidv4 } from "uuid";
 import { createUser } from "../../src/controllers/create";
 import { dynamodb } from "../../src/dynamodb";
+import { logger } from "../../src";
 
 jest.mock("../../src/dynamodb");
 jest.mock("uuid", () => ({
   v4: jest.fn(),
+}));
+jest.mock("../../src", () => ({
+  logger: {
+    error: jest.fn(),
+  },
 }));
 
 const app = express();
@@ -25,6 +31,7 @@ describe("Create User Controller", () => {
     expect(res.body).toEqual({
       error: "You should provide name and email to create a record",
     });
+    expect(logger.error).toHaveBeenCalledWith("Invalid input");
   });
 
   it("should return 400 if name is missing", async () => {
@@ -34,6 +41,7 @@ describe("Create User Controller", () => {
     expect(res.body).toEqual({
       error: "You should provide name and email to create a record",
     });
+    expect(logger.error).toHaveBeenCalledWith("Invalid input");
   });
 
   it("should create a user successfully", async () => {
@@ -62,5 +70,6 @@ describe("Create User Controller", () => {
 
     expect(res.status).toBe(500);
     expect(res.body).toEqual({ error: "Failed to create user in db" });
+    expect(logger.error).toHaveBeenCalledWith("DB error:", new Error("DB Error"));
   });
 });

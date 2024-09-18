@@ -2,8 +2,14 @@ import request from "supertest";
 import express from "express";
 import { updateUser } from "../../src/controllers/update";
 import { dynamodb } from "../../src/dynamodb";
+import { logger } from "../../src";
 
 jest.mock("../../src/dynamodb");
+jest.mock("../../src", () => ({
+  logger: {
+    error: jest.fn(),
+  },
+}));
 
 const app = express();
 app.use(express.json());
@@ -37,6 +43,7 @@ describe("PUT /user/:id", () => {
 
     expect(res.status).toBe(500);
     expect(res.body).toEqual({ error: "Failed to update user in db" });
+    expect(logger.error).toHaveBeenCalledWith("DB error:", new Error("DB Error"));
   });
 
   it("should return 400 for invalid input", async () => {
