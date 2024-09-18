@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { dynamodb } from '../dynamodb';
+import { dynamodb } from "../dynamodb";
 import { ScanCommandInput, ScanCommandOutput } from "@aws-sdk/lib-dynamodb";
 
 export const listUsers = (_req: Request, res: Response) => {
@@ -11,7 +11,7 @@ export const listUsers = (_req: Request, res: Response) => {
     if (error) {
       console.error(error);
       res.status(500).json({
-        error: 'Failed to retrieve users from db',
+        error: "Failed to retrieve users from db",
       });
 
       return;

@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { dynamodb } from '../dynamodb';
+import { dynamodb } from "../dynamodb";
 import { UpdateCommandInput, UpdateCommandOutput } from "@aws-sdk/lib-dynamodb";
 
 export const updateUser = (req: Request, res: Response) => {
@@ -8,7 +8,7 @@ export const updateUser = (req: Request, res: Response) => {
   if (!name || !email) {
     console.error("Invalid input");
     res.status(400).json({ error: "Invalid input format" });
-    
+
     return;
   }
 
@@ -32,7 +32,7 @@ export const updateUser = (req: Request, res: Response) => {
   dynamodb.update(params, (error: unknown, result?: UpdateCommandOutput) => {
     if (error) {
       console.error(error);
-      res.status(500).json({ error: 'Failed to update user in db' });
+      res.status(500).json({ error: "Failed to update user in db" });
 
       return;
     }

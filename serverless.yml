@@ -47,22 +47,17 @@ resources:
       Properties:
         TableName: ${env:TABLE_NAME}
         AttributeDefinitions:
-          -
-            AttributeName: id
+          - AttributeName: id
             AttributeType: S
-          -
-            AttributeName: email
+          - AttributeName: email
             AttributeType: S
         KeySchema:
-          -
-            AttributeName: id
+          - AttributeName: id
             KeyType: HASH
         GlobalSecondaryIndexes:
-          -
-            IndexName: EmailIndex
+          - IndexName: EmailIndex
             KeySchema:
-              -
-                AttributeName: email
+              - AttributeName: email
                 KeyType: HASH
             Projection:
               ProjectionType: ALL

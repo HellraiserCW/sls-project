@@ -1,7 +1,7 @@
 {
   "name": "sls-project",
   "author": "Kostiantyn Sakharov",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Serverless with serverless-offline, serverless-esbuild, typescript, serverless-dynamodb",
   "license": "MIT",
   "scripts": {
@@ -34,6 +34,7 @@
     "eslint": "^9.10.0",
     "jest": "^29.7.0",
     "latest": "^0.2.0",
+    "prettier": "3.3.3",
     "serverless": "^3.39.0",
     "serverless-dotenv-plugin": "^6.0.0",
     "serverless-esbuild": "^1.46.0",

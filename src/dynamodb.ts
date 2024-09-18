@@ -1,18 +1,17 @@
-import { DynamoDBDocument } from '@aws-sdk/lib-dynamodb';
-import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
+import { DynamoDBDocument } from "@aws-sdk/lib-dynamodb";
+import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
+import dotenv from 'dotenv';
 
-let options = {};
+dotenv.config();
 
-if (process.env.IS_OFFLINE) {
-  options = {
-    region: 'localhost',
-    endpoint: 'http://0.0.0.0:8000',
-    credentials: {
-      accessKeyId: 'MockAccessKeyId',
-      secretAccessKey: 'MockSecretAccessKey',
-    },
-  };
-}
+const options = {
+  endpoint: process.env.AWS_ENDPOINT_URL_DYNAMODB!,
+  region: process.env.AWS_REGION!,
+  credentials: {
+    accessKeyId: process.env.ACCESS_KEY_ID!,
+    secretAccessKey: process.env.SECRET_ACCESS_KEY!,
+  },
+};
 
 export const client = new DynamoDBClient(options);
 
