@@ -3,12 +3,18 @@ import { dynamodb } from "../dynamodb";
 import { QueryCommandInput, QueryCommandOutput } from "@aws-sdk/lib-dynamodb";
 
 export const getUserByEmail = (req: Request, res: Response) => {
+  const email = req.query.email as string;
+
+  if (!email) {
+    return res.status(400).json({ error: "Email is required" });
+  }
+
   const params: QueryCommandInput = {
     TableName: process.env.TABLE_NAME,
     IndexName: "EmailIndex",
     KeyConditionExpression: "email = :email",
     ExpressionAttributeValues: {
-      ":email": req.params.email,
+      ":email": email,
     },
   };
 

@@ -7,9 +7,9 @@ jest.mock("../../src/dynamodb");
 
 const app = express();
 app.use(express.json());
-app.get("/users/by-email/:email", getUserByEmail);
+app.get("/users", getUserByEmail);
 
-describe("GET /users/by-email/:email", () => {
+describe("GET /users", () => {
   it("should retrieve a user by email successfully", async () => {
     const mockUsers = [
       { id: "1234-5678-91011", name: "John Doe", email: "john@example.com" },
@@ -18,10 +18,19 @@ describe("GET /users/by-email/:email", () => {
       callback(null, { Items: mockUsers });
     });
 
-    const res = await request(app).get("/users/by-email/john@example.com");
+    const res = await request(app).get("/users?email=john@example.com");
 
     expect(res.status).toBe(200);
     expect(res.body).toEqual(mockUsers);
+  });
+
+  it("should return 400 if email query parameter is missing", async () => {
+    const res = await request(app).get("/users");
+
+    expect(res.status).toBe(400);
+    expect(res.body).toEqual({
+      error: "Email is required",
+    });
   });
 
   it("should return 500 if there is a database error", async () => {
@@ -29,7 +38,7 @@ describe("GET /users/by-email/:email", () => {
       callback(new Error("DB Error"), null);
     });
 
-    const res = await request(app).get("/users/by-email/john@example.com");
+    const res = await request(app).get("/users?email=john@example.com");
 
     expect(res.status).toBe(500);
     expect(res.body).toEqual({
