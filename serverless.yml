@@ -30,7 +30,7 @@ provider:
         - dynamodb:GetItem
       Resource:
         - "arn:aws:dynamodb:${aws:region}:*:table/${env:TABLE_NAME}"
-        - "arn:aws:dynamodb:${aws:region}:*:table/${env:TABLE_NAME}/index/EmailIndex"
+        - "arn:aws:dynamodb:${aws:region}:*:table/${env:TABLE_NAME}/index/${env:GLOBAL_SECONDARY_INDEX_NAME}"
 
 useDotenv: true
 
@@ -55,9 +55,9 @@ resources:
           - AttributeName: id
             KeyType: HASH
         GlobalSecondaryIndexes:
-          - IndexName: EmailIndex
+          - IndexName: ${env:GLOBAL_SECONDARY_INDEX_NAME}
             KeySchema:
-              - AttributeName: email
+              - AttributeName: ${env:GLOBAL_SECONDARY_ATTRIBUTE_NAME}
                 KeyType: HASH
             Projection:
               ProjectionType: ALL

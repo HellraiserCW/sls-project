@@ -3,10 +3,10 @@ import { logger } from "../../src";
 import { logMiddleware } from "../../src/middlewares/log-middleware";
 
 jest.mock("../../src", () => ({
-    logger: {
-      info: jest.fn(),
-    },
-  }));
+  logger: {
+    info: jest.fn(),
+  },
+}));
 
 describe("userMiddleware", () => {
   let req: Partial<Request>;

@@ -5,7 +5,7 @@
   "description": "Serverless with serverless-offline, serverless-esbuild, typescript, serverless-dynamodb",
   "license": "MIT",
   "scripts": {
-    "start": "sls offline start",
+    "start": "tsc offline/migrations/users.ts && node offline/migrations/users.js && sls offline start",
     "test": "jest",
     "test:coverage": "jest --coverage",
     "format": "prettier --write . --ignore-path .gitignore",
