@@ -1,8 +1,8 @@
 import { writeFileSync } from "fs";
 import { join } from "path";
-import { config } from "dotenv";
+import dotenv from "dotenv";
 
-config();
+dotenv.config();
 
 interface AttributeDefinition {
   AttributeName: string;
