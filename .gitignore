@@ -6,3 +6,6 @@ node_modules
 .env
 coverage
 .yarn
+package-lock.json
+offline/migrations/*
+!offline/migrations/users.ts

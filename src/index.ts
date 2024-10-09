@@ -1,7 +1,9 @@
 import { Logger } from "@aws-lambda-powertools/logger";
 import { LogLevel } from "@aws-lambda-powertools/logger/types";
-import serverless from "serverless-http";
+import middy from '@middy/core';
 import express, { Request, Response } from "express";
+import serverless from "serverless-http";
+import { logMiddleware } from './middlewares/log-middleware';
 import usersRouter from "./routes/users";
 
 const app = express();
@@ -19,4 +21,6 @@ app.get("/", (_req: Request, res: Response) => {
 
 app.use("/users", usersRouter);
 
-export const handler = serverless(app);
+const originalHandler = serverless(app);
+
+export const handler = middy().use(logMiddleware()).handler(originalHandler);
