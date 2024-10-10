@@ -2,10 +2,10 @@ import request from "supertest";
 import express from "express";
 import { getUserByEmail } from "../../src/controllers/get-by-email";
 import { dynamodb } from "../../src/dynamodb";
-import { logger } from "../../src";
+import { logger } from "../../src/logger";
 
 jest.mock("../../src/dynamodb");
-jest.mock("../../src", () => ({
+jest.mock("../../src/logger", () => ({
   logger: {
     error: jest.fn(),
   },
@@ -13,25 +13,25 @@ jest.mock("../../src", () => ({
 
 const app = express();
 app.use(express.json());
-app.get("/users", getUserByEmail);
+app.get("/users/by-email/:email", getUserByEmail);
 
-describe("GET /users", () => {
+describe("GET /users/by-email", () => {
   it("should retrieve a user by email successfully", async () => {
     const mockUsers = [{ id: "1234-5678-91011", name: "John Doe", email: "john@example.com" }];
     (dynamodb.query as jest.Mock).mockImplementation((_params, callback) => {
       callback(null, { Items: mockUsers });
     });
 
-    const res = await request(app).get("/users?email=john@example.com");
+    const res = await request(app).get("/users/by-email/john@example.com");
 
     expect(res.status).toBe(200);
     expect(res.body).toEqual(mockUsers);
   });
 
-  it("should return 400 if email query parameter is missing", async () => {
-    const res = await request(app).get("/users");
+  it("should return 404 if email is missing", async () => {
+    const res = await request(app).get("/users/by-email");
 
-    expect(res.status).toBe(400);
+    expect(res.status).toBe(404);
     expect(res.body).toEqual({
       error: "Email is required",
     });

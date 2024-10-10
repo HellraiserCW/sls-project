@@ -1,14 +1,14 @@
 import middy from "@middy/core";
-import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
+import { APIGatewayProxyEventV2, APIGatewayProxyResult } from "aws-lambda";
 import dotenv from "dotenv";
-import { logger } from "..";
+import { logger } from "../logger";
 
 dotenv.config();
 
-export const logMiddleware = (): middy.MiddlewareObj<APIGatewayProxyEvent, APIGatewayProxyResult> => {
-  const logMiddlewareBefore: middy.MiddlewareFn<APIGatewayProxyEvent, APIGatewayProxyResult> = (request): void => {
-    const { httpMethod, path } = request.event;
-    logger.info(`Incoming request: ${httpMethod} ${path}`);
+export const logMiddleware = (): middy.MiddlewareObj<APIGatewayProxyEventV2, APIGatewayProxyResult> => {
+  const logMiddlewareBefore: middy.MiddlewareFn<APIGatewayProxyEventV2, APIGatewayProxyResult> = (request): void => {
+    const { method, path } = request.event.requestContext.http;
+    logger.info(`Incoming request: ${method} ${path}`);
   };
 
   return {

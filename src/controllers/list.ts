@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { dynamodb } from "../dynamodb";
 import { ScanCommandInput, ScanCommandOutput } from "@aws-sdk/lib-dynamodb";
-import { logger } from "..";
+import { logger } from "../logger";
 
 export const listUsers = (_req: Request, res: Response) => {
   const params: ScanCommandInput = {

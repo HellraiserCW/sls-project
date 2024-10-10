@@ -1,11 +1,11 @@
 import request from "supertest";
 import express from "express";
-import { getUser } from "../../src/controllers/get";
+import { getUserById } from "../../src/controllers/get-by-id";
 import { dynamodb } from "../../src/dynamodb";
-import { logger } from "../../src";
+import { logger } from "../../src/logger";
 
 jest.mock("../../src/dynamodb");
-jest.mock("../../src", () => ({
+jest.mock("../../src/logger", () => ({
   logger: {
     error: jest.fn(),
   },
@@ -13,7 +13,7 @@ jest.mock("../../src", () => ({
 
 const app = express();
 app.use(express.json());
-app.get("/user/:id", getUser);
+app.get("/user/:id", getUserById);
 
 describe("GET /user/:id", () => {
   it("should retrieve a user successfully", async () => {

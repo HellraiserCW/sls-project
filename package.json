@@ -18,6 +18,7 @@
     "@aws-sdk/lib-dynamodb": "^3.650.0",
     "@aws-sdk/util-dynamodb": "^3.650.0",
     "@middy/core": "^5.5.0",
+    "@middy/http-router": "^5.5.0",
     "express": "^4.21.0",
     "serverless-dynamodb": "^0.2.54",
     "serverless-http": "^3.2.0",

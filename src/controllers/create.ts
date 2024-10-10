@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { v4 as uuidv4 } from "uuid";
 import { dynamodb } from "../dynamodb";
 import { PutCommandInput } from "@aws-sdk/lib-dynamodb";
-import { logger } from "..";
+import { logger } from "../logger";
 
 export const createUser = (req: Request, res: Response) => {
   const { name, email } = req.body;

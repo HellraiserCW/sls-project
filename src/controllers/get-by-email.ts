@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
 import { dynamodb } from "../dynamodb";
 import { QueryCommandInput, QueryCommandOutput } from "@aws-sdk/lib-dynamodb";
-import { logger } from "..";
+import { logger } from "../logger";
 
 export const getUserByEmail = (req: Request, res: Response) => {
-  const email = req.query.email as string;
+  const email = req.params.email;
 
   if (!email) {
     return res.status(400).json({ error: "Email is required" });

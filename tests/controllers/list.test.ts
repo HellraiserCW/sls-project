@@ -2,10 +2,10 @@ import request from "supertest";
 import express from "express";
 import { listUsers } from "../../src/controllers/list";
 import { dynamodb } from "../../src/dynamodb";
-import { logger } from "../../src";
+import { logger } from "../../src/logger";
 
 jest.mock("../../src/dynamodb");
-jest.mock("../../src", () => ({
+jest.mock("../../src/logger", () => ({
   logger: {
     error: jest.fn(),
   },

@@ -1,33 +1,57 @@
-import { NextFunction, Request, Response } from "express";
-import { logger } from "../../src";
+import { APIGatewayProxyEventV2, Context } from "aws-lambda";
+import middy from "@middy/core";
 import { logMiddleware } from "../../src/middlewares/log-middleware";
+import { logger } from "../../src/logger";
 
-jest.mock("../../src", () => ({
+jest.mock("../../src/logger", () => ({
   logger: {
     info: jest.fn(),
   },
 }));
 
-describe("userMiddleware", () => {
-  let req: Partial<Request>;
-  let res: Partial<Response>;
-  let next: NextFunction;
+describe("logMiddleware", () => {
+  let handler: middy.MiddyfiedHandler<APIGatewayProxyEventV2, any, Error>;
+  let event: Partial<APIGatewayProxyEventV2>;
+  let context: Context;
 
   beforeEach(() => {
     jest.clearAllMocks();
-    res = {
-      status: jest.fn().mockReturnThis(),
-      json: jest.fn(),
+    handler = middy(async () => ({ statusCode: 200 })).use(logMiddleware());
+    event = {
+      requestContext: {
+        accountId: "string",
+        apiId: "string",
+        domainName: "string",
+        domainPrefix: "string",
+        http: {
+          method: "GET",
+          path: "/test",
+          protocol: "string",
+          sourceIp: "string",
+          userAgent: "string",
+        },
+        requestId: "string",
+        routeKey: "string",
+        stage: "string",
+        time: "string",
+        timeEpoch: 0,
+      },
     };
-    next = jest.fn();
+    context = {} as Context;
   });
 
-  it("should call logger info on each api call", () => {
-    req = { method: "GET", url: "/test" };
-
-    logMiddleware(req as Request, res as Response, next);
+  it("should call logger info on each API call", async () => {
+    await handler(event as APIGatewayProxyEventV2, context);
 
     expect(logger.info).toHaveBeenCalledWith("Incoming request: GET /test");
-    expect(next).toHaveBeenCalled();
+  });
+
+  it("should handle different HTTP methods", async () => {
+    event.requestContext!.http.method = "POST";
+    event.requestContext!.http.path = "/submit";
+
+    await handler(event as APIGatewayProxyEventV2, context);
+
+    expect(logger.info).toHaveBeenCalledWith("Incoming request: POST /submit");
   });
 });

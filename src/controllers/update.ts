@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { dynamodb } from "../dynamodb";
 import { UpdateCommandInput, UpdateCommandOutput } from "@aws-sdk/lib-dynamodb";
-import { logger } from "..";
+import { logger } from "../logger";
 
 export const updateUser = (req: Request, res: Response) => {
   const { name, email } = req.body;

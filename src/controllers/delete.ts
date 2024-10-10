@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { dynamodb } from "../dynamodb";
 import { DeleteCommandInput } from "@aws-sdk/lib-dynamodb";
-import { logger } from "..";
+import { logger } from "../logger";
 
 export const deleteUser = (req: Request, res: Response) => {
   const params: DeleteCommandInput = {

@@ -3,13 +3,13 @@ import request from "supertest";
 import { v4 as uuidv4 } from "uuid";
 import { createUser } from "../../src/controllers/create";
 import { dynamodb } from "../../src/dynamodb";
-import { logger } from "../../src";
+import { logger } from "../../src/logger";
 
 jest.mock("../../src/dynamodb");
 jest.mock("uuid", () => ({
   v4: jest.fn(),
 }));
-jest.mock("../../src", () => ({
+jest.mock("../../src/logger", () => ({
   logger: {
     error: jest.fn(),
   },

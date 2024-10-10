@@ -2,10 +2,10 @@ import request from "supertest";
 import express from "express";
 import { deleteUser } from "../../src/controllers/delete";
 import { dynamodb } from "../../src/dynamodb";
-import { logger } from "../../src";
+import { logger } from "../../src/logger";
 
 jest.mock("../../src/dynamodb");
-jest.mock("../../src", () => ({
+jest.mock("../../src/logger", () => ({
   logger: {
     error: jest.fn(),
   },
@@ -33,7 +33,6 @@ describe("DELETE /delete/:id", () => {
     });
 
     const res = await request(app).delete("/delete/1234-5678-91011");
-
     expect(res.status).toBe(500);
     expect(res.body).toEqual({ error: "Failed to delete user from db" });
     expect(logger.error).toHaveBeenCalledWith("DB error:", new Error("DB Error"));

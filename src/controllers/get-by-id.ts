@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
 import { dynamodb } from "../dynamodb";
-import { GetCommandOutput } from "@aws-sdk/lib-dynamodb";
-import { logger } from "..";
+import { GetCommandInput, GetCommandOutput } from "@aws-sdk/lib-dynamodb";
+import { logger } from "../logger";
 
-export const getUser = (req: Request, res: Response) => {
-  const params = {
+export const getUserById = (req: Request, res: Response) => {
+  const params: GetCommandInput = {
     TableName: process.env.TABLE_NAME,
     Key: {
       id: req.params.id,
